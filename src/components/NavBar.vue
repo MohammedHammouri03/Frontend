@@ -13,6 +13,10 @@
           <router-link class="nav-link" to="/test">Test</router-link>
           <router-link class="nav-link" to="/about">About</router-link>
         </ul>
+        <ul class="navbar-nav ms-auto">
+          <router-link class="nav-link" to="/login">Login</router-link>
+          <router-link class="nav-link" to="/register">Registrieren</router-link>
+        </ul>
       </div>
     </div>
   </nav>
@@ -22,7 +26,21 @@ export default {
   name: 'NavBar'
 }
 </script>
-
 <style scoped>
+.container-fluid {
+  background-color: rgba(7, 35, 105, 0.49);
+}
+.navbar-nav {
+  margin-left: 20px;
+}
+.navbar-brand {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.nav-link {
+  font-size: 1.0em;
+  font-weight: bold;
+  color: #f6f6f6;
+}
 
 </style>
