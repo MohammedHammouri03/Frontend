@@ -51,5 +51,4 @@ background-size: cover;
   font-weight: bold;
   color: #f6f6f6;
 }
-
 </style>
