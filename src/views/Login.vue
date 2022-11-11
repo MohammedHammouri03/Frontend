@@ -8,7 +8,7 @@
     <input type="text" name="" placeholder="E-Mail">
     <input type="password" name="" placeholder="Passwort">
     <input type="submit" name="" value="Login">
-    <a href="/register">Noch kein Account?</a>
+    <a href="/register">Noch kein Account? Registrieren</a>
   </form>
 </template>
 <script>
@@ -23,22 +23,24 @@ body {
   font-family: sans-serif;
   background: #34495e;
 }
-.box{
+.box {
   width: 500px;
   padding: 80px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   background: #191919;
   text-align: center;
 }
-.box h1{
+
+.box h1 {
   color: white;
   text-transform: uppercase;
   font-weight: 500;
 }
-.box input[type="text"],.box input[type="password"]{
+
+.box input[type="text"], .box input[type="password"] {
   border: 0;
   background: none;
   display: block;
@@ -52,11 +54,13 @@ body {
   border-radius: 24px;
   transition: 0.25s;
 }
-.box input[type="text"]:focus,.box input[type="password"]:focus{
+
+.box input[type="text"]:focus, .box input[type="password"]:focus {
   width: 280px;
   border-color: #2ecc71;
 }
-.box input[type="submit"]{
+
+.box input[type="submit"] {
   border: 0;
   background: none;
   display: block;
@@ -71,7 +75,8 @@ body {
   cursor: pointer;
   font-max-size: large;
 }
-.box input[type="submit"]:hover{
+
+.box input[type="submit"]:hover {
   background: #2ecc71;
 }
 </style>

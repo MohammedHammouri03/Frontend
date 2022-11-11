@@ -1,81 +1,105 @@
 <template>
-  <div class="container">
-      <input type="checkbox" id="card-1"/>
-      <label class="col-md-4 card-container" for="card-1">
-        <div class="card-flip">
-          <div class="card front">
-            <div class="card-block">
-              <h1 class="card-title text-center">Front Card Title</h1>
-            </div>
-          </div>
-          <div class="card back">
-            <div class="card-block">
-              <h1 class="card-title">Back Card Title</h1>
-            </div>
-          </div>
-        </div>
-      </label>
-    </div>
+  <div class="about">
+    <h1 class="h1">Diese Website ist im Rahmen eines Projektes an der HTW Berlin erstellt worden </h1>
+    <h2 class="h2">Die Website wurde mit Vue.js und Bootstrap erstellt</h2>
+    <h3 class="h3">WebTech SoSe 2022</h3>
+  </div>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<div class="container">
+  <a href="www.google.com"><i class="fa fa-github-square github" id="apple" href="google.com"></i></a>
+  <i class="fa fa-google" id="twitter"></i>
+  <i class="fa fa-github-square github" id="github"></i>
+  <i class="fa fa-instagram" id="facebook"></i>
+</div>
+</body>
 </template>
 <script>
 export default {
-  name: 'Aboutview'
+  name: 'AboutView'
 }
 </script>
 <style scoped>
-.card-title {
-  font-size: 2em;
-  font-weight: 800;
-  line-height: 3em;
+.h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  background-image: url("https://media4.giphy.com/media/cQhmYBg9qPaLYdqajA/200w.gif?cid=6c09b9528wlbzls6gtsgwox9gdcr8mv66wld919f9kyaff68&rid=200w.gif&ct=g");
+  background-size: cover;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.h2 {
+  font-size: 1.0em;
+  font-weight: bold;
+  background-image: url("https://media4.giphy.com/media/cQhmYBg9qPaLYdqajA/200w.gif?cid=6c09b9528wlbzls6gtsgwox9gdcr8mv66wld919f9kyaff68&rid=200w.gif&ct=g");
+  background-size: cover;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.h3 {
+  font-size: 1.0em;
+  font-weight: bold;
+  background-image: url("https://media4.giphy.com/media/cQhmYBg9qPaLYdqajA/200w.gif?cid=6c09b9528wlbzls6gtsgwox9gdcr8mv66wld919f9kyaff68&rid=200w.gif&ct=g");
+  background-size: cover;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+* {
   margin: 0;
   padding: 0;
-  text-align: center;
-  color: #141515;
 }
-.card {
-  margin: 10px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  background-color: #f6f1f1;
-  transition: all 0.5s ease;
-  transform-style: preserve-3d;
-  position: relative;
-  font-max-size: large;
+body {
+  height: 100vh;
+  width: 100vw;
+  background: #18191f;
 }
-.card-block {
-  padding: 10.5rem;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  width: 100vw;
+  margin-left: 100px;
 }
-input[type='checkbox'] {
-  display: none;
+#apple,
+#twitter,
+#github,
+#facebook {
+  font-size: 8em;
+  background-color: #18191f;
+  color: #fff;
+  box-shadow: 2px 2px 2px #00000080, 10px 1px 12px #00000080,
+  2px 2px 10px #00000080, 2px 2px 3px #00000080, inset 2px 2px 10px #00000080,
+  inset 2px 2px 10px #00000080, inset 2px 2px 10px #00000080,
+  inset 2px 2px 10px #00000080;
+  border-radius: 29px;
+  padding: 11px 19px;
+  margin: 0 40px;
+  animation: animate 3s linear infinite;
+  text-shadow: 0 0 50px #0072ff, 0 0 100px #0072ff, 0 0 150px #0072ff,
+  0 0 200px #0072ff;
 }
-.card-container {
-  display: grid;
-  perspective: 700px;
-  margin-left: 200px;
-  width: 65%;
+#twitter {
+  animation-delay: 0.3s;
+}
+#facebook {
+  animation-delay: 0.7s;
+}
+#github {
+  animation-delay: 0.1s;
 }
 
-.card-flip {
-  display: grid;
-  grid-template: 1fr / 1fr;
-  grid-template-areas: "frontAndBack";
-  transform-style: preserve-3d;
-  transition: all 0.7s ease;
-}
-
-.card-flip div {
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-}
-.front {
-  grid-area: frontAndBack;
-}
-.back {
-  grid-area: frontAndBack;
-  transform: rotateY(180deg);
-}
-input[type='checkbox']:checked + .card-container .card-flip {
-  transform: rotateY(180deg);
+@keyframes animate {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
 }
 </style>
