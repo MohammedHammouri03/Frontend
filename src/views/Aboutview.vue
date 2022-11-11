@@ -11,10 +11,10 @@
 
 <body>
 <div class="container">
-  <a href="www.google.com"><i class="fa fa-github-square github" id="apple" href="google.com"></i></a>
-  <i class="fa fa-google" id="twitter"></i>
-  <i class="fa fa-github-square github" id="github"></i>
-  <i class="fa fa-instagram" id="facebook"></i>
+  <a href="https://github.com/MohammedHammouri03/Frontend"><i class="fa fa-github-square github" id="github" href="google.com"></i></a>
+  <a href="https://www.htw-berlin.de/"><i class="fa fa-google" id="google"></i></a>
+  <a href="https://github.com/MohammedHammouri03/webtechProjekt"> <i class="fa fa-github-square github" id="github"></i></a>
+  <a href="https://www.instagram.com/htwberlin/?hl=de"><i class="fa fa-instagram" id="instagram"></i></a>
 </div>
 </body>
 </template>
@@ -66,10 +66,11 @@ body {
   width: 100vw;
   margin-left: 100px;
 }
-#apple,
-#twitter,
 #github,
-#facebook {
+#instagram,
+#github,
+#google
+{
   font-size: 8em;
   background-color: #18191f;
   color: #fff;
