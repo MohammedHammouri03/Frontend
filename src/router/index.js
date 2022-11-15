@@ -6,26 +6,40 @@ import Testview from '../views/Testview.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 
+
+
 const routes = [
   {
-    path: '/home',
-    name: 'home',
-    component: HomeView
+    path: '/',
+    name: 'Home',
+    component: HomeView,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/about',
     name: 'about',
-    component: AboutView
+    component: AboutView,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/learn',
     name: 'learn',
-    component: Learnview
+    component: Learnview,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/test',
     name: 'test',
-    component: Testview
+    component: Testview,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/register',

@@ -14,7 +14,7 @@
           <router-link class="nav-link" to="/about">About</router-link>
         </ul>
         <ul class="navbar-nav ms-auto">
-          <router-link class="nav-link" to="/login">Login</router-link>
+          <router-link class="nav-link" to="/login" >Login</router-link>
           <router-link class="nav-link" to="/register">Registrieren</router-link>
         </ul>
       </div>
@@ -30,8 +30,9 @@ export default {
 .container-fluid {
   background-color: rgba(7, 35, 105, 0.49);
   background-image: url("https://cdn.wallpapersafari.com/73/42/BlmdPO.jpg");
-background-size: cover;
+  background-size: cover;
 }
+
 .navbar-nav {
   margin-left: 20px;
 }

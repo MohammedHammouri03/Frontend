@@ -2,7 +2,7 @@
   <div class="about">
     <h1 class="h1">Diese Website ist im Rahmen eines Projektes an der HTW Berlin erstellt worden </h1>
     <h2 class="h2">Die Website wurde mit Vue.js und Bootstrap erstellt</h2>
-    <h3 class="h3">WebTech SoSe 2022</h3>
+    <h3 class="h3">WebTech WiSe 22/23</h3>
   </div>
 <head>
   <link rel="stylesheet" href="style.css">

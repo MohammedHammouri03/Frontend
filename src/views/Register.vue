@@ -24,13 +24,13 @@
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
-                    <input type="text" id="form3Example1" class="form-control" />
+                    <input type="text" id="form3Example1" class="form-control"/>
                     <label class="form-label" for="form3Example1">Vorname</label>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
-                    <input type="text" id="form3Example2" class="form-control" />
+                    <input type="text" id="form3Example2" class="form-control"/>
                     <label class="form-label" for="form3Example2">Nachname</label>
                   </div>
                 </div>
@@ -38,13 +38,13 @@
 
               <!-- Email  -->
               <div class="form-outline mb-4">
-                <input type="email" id="form3Example3" class="form-control" />
+                <input type="email" id="form3Example3" class="form-control"/>
                 <label class="form-label" for="form3Example3">Email Adresse</label>
               </div>
 
               <!-- Password  -->
               <div class="form-outline mb-4">
-                <input type="password" id="form3Example4" class="form-control" />
+                <input type="password" id="form3Example4" class="form-control"/>
                 <label class="form-label" for="form3Example4">Password</label>
               </div>
               <!-- Bestätigungs button -->
@@ -66,4 +66,24 @@
   </section>
 </template>
 <script>
+export default {
+  name: 'register',
+  data () {
+    return {
+      person: []
+    }
+  },
+  mounted () {
+    const requestOptions = {
+      method: 'POST',
+      redirect: 'follow'
+    }
+    fetch('http://localhost:8080/api/persons', requestOptions)
+      .then(response => response.json())
+      .then(result => result.forEach(element => {
+        this.person.push(element)
+      }))
+      .catch(error => console.log('error', error))
+  }
+}
 </script>
