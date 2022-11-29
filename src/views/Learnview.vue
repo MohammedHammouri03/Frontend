@@ -4,6 +4,7 @@
   </head>
   <body>
   <div class="container-fluid">
+    <h1 class="titleh1">Vocabularies</h1>
     <div class="row row-cols 1 row-cols-md4 g-4">
       <div class="col" v-for="vocabular in vocabularies" :key="vocabular.id">
         <div class="box">
@@ -11,6 +12,7 @@
    <div class="word">
      <h2>{{ vocabular.word }}</h2>
    <div class="click">
+     <button class="btn btn-danger" @click="deletevocabulary">Delete</button>
      <button class="btn btn-primary" @click="showDefinition(vocabular)"><svg xmlns="http://www.w3.org/2000/svg"
                                                                              width="16" height="16" fill="currentColor"
                                                                              class="bi bi-eye-fill" viewBox="0 0 16 16">
@@ -37,24 +39,17 @@
         d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
     </svg>
   </button>
-
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
       <h5 id="offcanvasRightLabel">Create a new Vocabulary</h5>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <form>
-        <div class="mb-3">
-          <label for="word" class="form-label">Word</label>
-          <input type="text" class="form-control" id="word" v-model="word">
-        </div>
-        <div class="mb-3">
-          <label for="translation" class="form-label">Translation</label>
-          <input type="text" class="form-control" id="translation" v-model="translation">
-        </div>
-        <button type="submit" class="btn btn-primary" @click="createVocabulary(vocabularies2)">Submit</button>
-        <button type="reset" class="btn btn-danger" @click="resetForm">Reset</button>
+      <form class="createbox">
+        <input type="text" placeholder="Word" v-model="word">
+        <input type="text" name="" placeholder="Translation" v-model="translation">
+        <input type="submit" name="" value="Submit" @click="createvocabulary">
+        <input type="reset" mame="" value="Reset">
       </form>
     </div>
   </div>
@@ -73,7 +68,7 @@ export default {
       method: 'GET',
       redirect: 'follow'
     }
-    fetch('http://localhost:8080/api/vocabularies', requestOptions)
+    fetch('http://localhost:8080/api/vokabel', requestOptions)
       .then(response => response.json())
       .then(result => result.forEach(vocabular => {
         this.vocabularies.push(vocabular)
@@ -84,36 +79,48 @@ export default {
     showDefinition (vocabular) {
       vocabular.showDefinition = !vocabular.showDefinition
     },
-    data () {
-      return {
-        vocabularies2: [],
-        word: '',
-        translation: ''
-      }
-    },
-    methods: {
-      createVocabulary () {
-        const headers = new Headers()
-        headers.append('Content-Type', 'application/json')
-
-        const raw = JSON.stringify({
+    createvocabulary () {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           word: this.word,
           translation: this.translation
         })
-        const requestOptions = {
-          method: 'POST',
-          headers: headers,
-          body: raw,
-          redirect: 'follow'
-        }
-        fetch('http://localhost:8080/api/vocabularies', requestOptions)
-          .catch(error => console.log('error', error))
       }
+      fetch('http://localhost:8080/api/vokabel', requestOptions)
+        .then(response => response.json())
+        .then(result => this.vocabularies.push(result))
+        .catch(error => console.log('error', error))
+    },
+    deletevocabulary (vocabular) {
+      const requestOptions = {
+        method: 'DELETE',
+        redirect: 'follow'
+      }
+      fetch('http://localhost:8080/api/vokabel/' + vocabular.id, requestOptions)
+        .then(response => response.text())
+        .then(result => this.vocabularies.splice(this.vocabularies.indexOf(vocabular), 1))
+        .catch(error => console.log('error', error))
     }
   }
 }
 </script>
 <style scoped>
+.titleh1 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 150px;
+  font-size: 50px;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  background-image: linear-gradient(to right, #ff416c, #ff4b2b);
+  border-radius: 10px;
+  padding: 10px;
+  width: 90%;
+  margin-left: 5%;
+}
+
 .btn-primary {
   margin-left: auto;
 }
@@ -161,7 +168,6 @@ body {
   overflow: hidden;
   margin: auto;
 }
-
 .box::before {
   content: '';
   position: absolute;
@@ -202,5 +208,89 @@ body {
   text-position: auto;
   margin: 8%;
   color: #1c1d1e;
+}
+
+.createbox {
+  width: 0px;
+  padding: 0px;
+  left: 60%;
+  position: absolute;
+  top: 25%;
+  transform: translate(-50%, -50%);
+  background: #0e0e0e;
+  text-align: center;
+}
+
+.createbox input[type="text"], .createbox input[type="password"] {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: #000000;
+  border-radius: 24px;
+  transition: 0.25s;
+  margin-left: -120px;
+}
+
+.createbox input[type="text"]:focus, .createbox input[type="text"]:focus {
+  width: 250px;
+  position: center;
+  border-color: #2ecc71;
+}
+
+.createbox input[type="reset"] {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #f60303;
+  padding: 14px 40px;
+  outline: none;
+  color: #000000;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+  font-max-size: large;
+  margin-left: -10px;
+  width: 140px;
+  height: 55px;
+}
+
+.createbox input[type="reset"]:hover {
+  background: #f60303;
+}
+
+.createbox input[type="submit"] {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #2ecc71;
+  padding: 14px 40px;
+  outline: none;
+  color: #1f1f1f;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+  font-max-size: large;
+  margin-left: -160px;
+  margin-bottom: -72px;
+  width: 140px;
+  height: 55px;
+}
+
+.createbox input[type="submit"]:hover {
+  background: #2ecc71;
+}
+
+.offcanvas-body {
+  background-image: url("https://www.ay-working.de/wp-content/uploads/2016/04/white-background-images-for-website-white-wallpapers-hd-2014-onlybackground-image.jpg");
 }
 </style>

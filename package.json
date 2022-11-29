@@ -18,7 +18,10 @@
     "bootstrap-icons": "^1.9.1",
     "bulma": "^0.9.4",
     "core-js": "^3.8.3",
+    "google-translate": "^3.0.0",
+    "v-google-translate": "^1.0.0",
     "vue": "^3.2.13",
+    "vue-gtranslate": "^2.0.20",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {

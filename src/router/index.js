@@ -6,11 +6,9 @@ import Testview from '../views/Testview.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 
-
-
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: HomeView,
     meta: {

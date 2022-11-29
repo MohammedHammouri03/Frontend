@@ -3,7 +3,7 @@
         background-image: url('https://toppng.com/uploads/preview/textured-backgrounds-for-websites-1155398483840bc0kagkc.jpg');
         height: 730px;
         "></div>
-  <form class="box" action="index.html" method="post">
+  <form class="createbox">
     <h1>Login</h1>
     <input type="text" name="" placeholder="E-Mail">
     <input type="password" name="" placeholder="Passwort">
@@ -23,7 +23,8 @@ body {
   font-family: sans-serif;
   background: #34495e;
 }
-.box {
+
+.createbox {
   width: 500px;
   padding: 80px;
   position: absolute;
@@ -34,13 +35,13 @@ body {
   text-align: center;
 }
 
-.box h1 {
+.createbox h1 {
   color: white;
   text-transform: uppercase;
   font-weight: 500;
 }
 
-.box input[type="text"], .box input[type="password"] {
+.createbox input[type="text"], .createbox input[type="password"] {
   border: 0;
   background: none;
   display: block;
@@ -55,12 +56,12 @@ body {
   transition: 0.25s;
 }
 
-.box input[type="text"]:focus, .box input[type="password"]:focus {
+.createbox input[type="text"]:focus, .createbox input[type="password"]:focus {
   width: 280px;
   border-color: #2ecc71;
 }
 
-.box input[type="submit"] {
+.createbox input[type="submit"] {
   border: 0;
   background: none;
   display: block;
@@ -76,7 +77,7 @@ body {
   font-max-size: large;
 }
 
-.box input[type="submit"]:hover {
+.createbox input[type="submit"]:hover {
   background: #2ecc71;
 }
 </style>
