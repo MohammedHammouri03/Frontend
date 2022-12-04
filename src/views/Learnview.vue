@@ -1,10 +1,8 @@
 <template>
-  <head>
-    <title>Vocabularies</title>
-  </head>
   <body>
   <div class="container-fluid">
     <h1 class="titleh1">Vocabularies</h1>
+    <h2 class="titleh2" v-if="vocabularies.length === 0">No Vocabularies Yet</h2>
     <div class="row row-cols 1 row-cols-md4 g-4">
       <div class="col" v-for="vocabular in vocabularies" :key="vocabular.id">
         <div class="box">
@@ -12,7 +10,6 @@
    <div class="word">
      <h2>{{ vocabular.word }}</h2>
    <div class="click">
-     <button class="btn btn-danger" @click="deletevocabulary">Delete</button>
      <button class="btn btn-primary" @click="showDefinition(vocabular)"><svg xmlns="http://www.w3.org/2000/svg"
                                                                              width="16" height="16" fill="currentColor"
                                                                              class="bi bi-eye-fill" viewBox="0 0 16 16">
@@ -23,8 +20,8 @@
      <div class="definition" v-if="vocabular.showDefinition">
        <h3>{{ vocabular.translation }}</h3>
      </div>
-   </div>
-   </span>
+        </div>
+        </span>
         </div>
       </div>
     </div>
@@ -46,7 +43,7 @@
     </div>
     <div class="offcanvas-body">
       <form class="createbox">
-        <input type="text" placeholder="Word" v-model="word">
+        <input type="text" placeholder="Word" v-model="word" spellcheck="true">
         <input type="text" name="" placeholder="Translation" v-model="translation">
         <input type="submit" name="" value="Submit" @click="createvocabulary">
         <input type="reset" mame="" value="Reset">
@@ -100,13 +97,15 @@ export default {
       }
       fetch('http://localhost:8080/api/vokabel/' + vocabular.id, requestOptions)
         .then(response => response.text())
-        .then(result => this.vocabularies.splice(this.vocabularies.indexOf(vocabular), 1))
+        .then(result => console.log(result))
         .catch(error => console.log('error', error))
+      this.vocabularies.splice(this.vocabularies.indexOf(vocabular), 1)
     }
   }
 }
 </script>
 <style scoped>
+
 .titleh1 {
   text-align: center;
   margin-top: 20px;
@@ -115,6 +114,19 @@ export default {
   color: white;
   text-shadow: 2px 2px 4px #000000;
   background-image: linear-gradient(to right, #ff416c, #ff4b2b);
+  border-radius: 10px;
+  padding: 10px;
+  width: 90%;
+  margin-left: 5%;
+}
+
+.titleh2 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 150px;
+  font-size: 50px;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
   border-radius: 10px;
   padding: 10px;
   width: 90%;
@@ -168,6 +180,7 @@ body {
   overflow: hidden;
   margin: auto;
 }
+
 .box::before {
   content: '';
   position: absolute;

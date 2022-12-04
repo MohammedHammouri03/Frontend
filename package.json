@@ -14,13 +14,16 @@
   },
   "dependencies": {
     "@okta/okta-vue": "^5.5.0",
+    "axios": "^1.2.0",
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",
     "bulma": "^0.9.4",
+    "chart.js": "^4.0.1",
     "core-js": "^3.8.3",
     "google-translate": "^3.0.0",
     "v-google-translate": "^1.0.0",
     "vue": "^3.2.13",
+    "vue-axios": "^3.5.2",
     "vue-gtranslate": "^2.0.20",
     "vue-router": "^4.0.3"
   },

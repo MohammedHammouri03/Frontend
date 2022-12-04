@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <button type="button" class="btn btn-primary">Primary</button>
+    <h1>Herzlichen Willkommen bei MyLearningApp</h1>
+    <p>Wolltest du nicht schon immer dein Englisch verbessern ?</p>
   </div>
 </template>
 

@@ -1,134 +1,320 @@
-<template>
-  <div class="container">
-    <input type="checkbox" id="card-1"/>
-    <label class="card-container" for="card-1">
-      <div class="card-flip">
-        <div class="front card">
-          <div class="card-block">
-            <h1 class="card-title text-center">{{ persons.firstName }}</h1>
-          </div>
-          <h1>Click on the card to turn around</h1>
-        </div>
-        <div class="back card">
-          <div class="card-block">
-            <h1 class="card-title">Back Card</h1>
-          </div>
-          <h1>Click on the card to turn around</h1>
-        </div>
-      </div>
-    </label>
-  </div>
-  <button type="button" class="btn btn-primary left">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left"
-         viewBox="0 0 16 16">
-      <path fill-rule="evenodd"
-            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-    </svg>
-  </button>
-  <button type="button" class="btn btn-primary middle">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise"
-         viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-      <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-    </svg>
-  </button>
-  <button type="button" class="btn btn-primary right">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right"
-         viewBox="0 0 16 16">
-      <path fill-rule="evenodd"
-            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-    </svg>
-  </button>
-</template>
-<script>
-export default {
-  name: 'Learnview',
-  data () {
-    return {
-      persons: []
-    }
-  },
-  mounted () {
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    }
+<script setup>
+import { computed, ref } from 'vue'
 
-    fetch('http://localhost:8080/api/persons', requestOptions)
-      .then(response => response.json())
-      .then(result => result.forEach(person => {
-        this.persons.push(person)
-      }))
-      .catch(error => console.log('error', error))
+const questions = ref([
+  {
+    question: 'Alles klar auf Englisch',
+    answer: 0,
+    options: [
+      'Alright',
+      'Yes',
+      'No',
+      'Yeah'
+    ],
+    selected: null
+  },
+  {
+    question: 'Flughafen auf Englisch',
+    answer: 3,
+    options: [
+      'aeropuerto',
+      'plane',
+      'airplane',
+      'airport'
+    ],
+    selected: null
+  },
+  {
+    question: 'Bäckerei auf Englisch',
+    answer: 2,
+    options: [
+      'Baker',
+      'Factory',
+      'bakery',
+      'shop'
+    ],
+    selected: null
+  },
+  {
+    question: 'Billig auf Englisch',
+    answer: 1,
+    options: [
+      'expensive',
+      'cheap',
+      'discount',
+      'none of the above'
+    ],
+    selected: null
+  },
+  {
+    question: 'Frühstuck auf Englisch',
+    answer: 0,
+    options: [
+      'breakfast',
+      'lunch',
+      'dinner',
+      'napkin'
+    ],
+    selected: null
+  },
+  {
+    question: 'Schlaufzimmer auf Englisch',
+    answer: 1,
+    options: [
+      'room service',
+      'bedroom',
+      'floor',
+      'reception'
+    ],
+    selected: null
+  },
+  {
+    question: 'Augenbraue auf Englisch',
+    answer: 2,
+    options: [
+      'eye',
+      'head',
+      'eyebrow',
+      'lips'
+    ],
+    selected: null
+  },
+  {
+    question: 'Reich auf Englisch',
+    answer: 3,
+    options: [
+      'poor',
+      'money',
+      'chief',
+      'rich'
+    ],
+    selected: null
+  },
+  {
+    question: 'Wichitg auf Englisch',
+    answer: 2,
+    options: [
+      'serious',
+      'funny',
+      'important',
+      'strong'
+    ],
+    selected: null
+  },
+  {
+    question: 'Versuchen auf Englisch',
+    answer: 0,
+    options: [
+      'to try',
+      'to want',
+      'to find',
+      'to see'
+    ],
+    selected: null
+  }
+])
+const quizcompleted = ref(false)
+const currentquestion = ref(0)
+const points = computed(() => {
+  let value = 0
+  questions.value.map(q => {
+    // eslint-disable-next-line eqeqeq
+    if (q.selected == q.answer) {
+      value++
+    }
+    return value
+  })
+  return value
+})
+const getcurrentquestion = computed(() => {
+  const question = questions.value[currentquestion.value]
+  question.index = currentquestion.value
+  return question
+})
+const SetAnswer = evt => {
+  questions.value[currentquestion.value].selected = evt.target.value
+  evt.target.value = null
+}
+const NextQuestion = () => {
+  if (currentquestion.value < questions.value.length - 1) {
+    currentquestion.value++
+  } else {
+    quizcompleted.value = true
   }
 }
+const restart = () => {
+  window.location.reload()
+}
+const savescore = () => {
+  const myHeaders = new Headers()
+  myHeaders.append('Content-Type', 'application/json')
+
+  const raw = JSON.stringify({
+    points: points.value
+  })
+
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  }
+
+  fetch('http://localhost:8080/api/score', requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error))
+  alert('Du hast den Score erfolgreich gespeichert')
+}
+</script>
+<template>
+  <main class="app">
+    <h1>Verbessere dein Englisch!</h1>
+    <section class="quiz" v-if="!quizcompleted">
+      <div class="quiz-info">
+        <span class="question">{{ getcurrentquestion.question }}</span>
+        <span class="score">Score {{ points }}/{{ questions.length }}</span>
+      </div>
+      <div class="options">
+        <label v-for="(option, index) in getcurrentquestion.options" :key="index"
+               :class="`option ${ getcurrentquestion.selected == index ? index == getcurrentquestion.answer ? 'correct' : 'wrong' : '' } ${getcurrentquestion.selected != null && index != getcurrentquestion.selected ? 'disabled' : '' }`">
+          <input type="radio" :name="getcurrentquestion.index" :value="index" v-model="getcurrentquestion.selected"
+                 :disabled="getcurrentquestion.selected" @change="SetAnswer">
+          <span>{{ option }}</span>
+        </label>
+      </div>
+      <button @click="NextQuestion"
+              :disabled="!getcurrentquestion.selected">
+        {{
+          getcurrentquestion.index == questions.length - 1
+            ? 'Fertig' : getcurrentquestion.selected == null ? 'Wähle eine Antwort' : 'Nächste Frage'
+        }}
+      </button>
+    </section>
+    <section v-else>
+      <h2>Du hast das Quiz beendet</h2>
+      <p>Dein Score ist {{ points }}/{{ questions.length }}</p>
+      <button @click="restart">Quiz neu starten</button>
+      <button @click="savescore">Score speichern</button>
+    </section>
+  </main>
+</template>
+<script>
 </script>
 <style scoped>
-.btn-primary {
-  background-color: #1e90ff;
-  border-color: #1e90ff;
-}
-
-.card-title {
-  font-size: 2em;
-  font-weight: 800;
-  line-height: 3em;
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #1c1d1e;
   margin: 0;
   padding: 0;
-  text-align: center;
-  color: #141515;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  color: white;
 }
 
-.card {
-  margin: 10px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  background-color: #f6f1f1;
-  transition: all 0.5s ease;
-  transform-style: preserve-3d;
-  position: relative;
-  font-max-size: large;
+.h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
 }
 
-.card-block {
-  padding: 10.5rem;
+.quiz {
+  background-color: #382a4b;
+  padding: 1rem;
+  width: 100%;
+  max-width: 640px;
+  border-radius: 0.5rem;
 }
 
-input[type='checkbox'] {
+.quiz-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.quiz-info .question {
+  color: #8f8f8f;
+  font-size: 1.25rem;
+}
+
+.quiz-info .score {
+  color: white;
+  font-size: 1.25rem;
+}
+
+.options {
+  margin-bottom: 1rem;
+}
+
+.option {
+  display: block;
+  padding: 1rem;
+  background-color: #271c36;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #2d213f;
+}
+
+.option.correct {
+  background-color: #2ecc71;
+}
+
+.option.wrong {
+  background-color: red;
+}
+
+.option:last-of-type {
+  margin-bottom: 0;
+}
+
+.option.disabled {
+  opacity: 0.5;
+}
+
+.option input {
   display: none;
 }
 
-.card-container {
-  display: grid;
-  perspective: 700px;
-  margin-left: 200px;
-  width: 65%;
+button {
+  appearance: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: #2cce7d;
+  color: #2d213f;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  border-radius: 0.5rem;
 }
 
-.card-flip {
-  display: grid;
-  grid-template: 1fr / 1fr;
-  grid-template-areas: "frontAndBack";
-  transform-style: preserve-3d;
-  transition: all 0.7s ease;
+button:disabled {
+  opacity: 0.5;
 }
 
-.card-flip div {
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
+h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-.front {
-  grid-area: frontAndBack;
+p {
+  color: #8f8f8f;
+  font-size: 1.25rem;
+  text-align: center;
 }
 
-.back {
-  grid-area: frontAndBack;
-  transform: rotateY(180deg);
-}
-
-input[type='checkbox']:checked + .card-container .card-flip {
-  transform: rotateY(180deg);
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
 }
 </style>
