@@ -196,6 +196,7 @@ const savescore = () => {
       <p>Dein Score ist {{ points }}/{{ questions.length }}</p>
       <button @click="restart">Quiz neu starten</button>
       <button @click="savescore">Score speichern</button>
+      <a href="/dashboard"><button>Dashboard anzeigen</button></a>
     </section>
   </main>
 </template>

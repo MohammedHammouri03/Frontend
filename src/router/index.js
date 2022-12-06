@@ -47,6 +47,14 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('../views/Dashboard.vue'),
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 

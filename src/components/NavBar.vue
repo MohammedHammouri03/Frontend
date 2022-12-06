@@ -11,6 +11,7 @@
           <router-link class="nav-link" to="/home">Home</router-link>
           <router-link class="nav-link" to="/learn">Lernen</router-link>
           <router-link class="nav-link" to="/test">Test</router-link>
+          <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
           <router-link class="nav-link" to="/about">About</router-link>
         </ul>
         <ul class="navbar-nav ms-auto">
