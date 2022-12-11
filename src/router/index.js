@@ -5,6 +5,7 @@ import Learnview from '../views/Learnview.vue'
 import Testview from '../views/Testview.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
+import Dictonary from '@/views/Dictonary'
 
 const routes = [
   {
@@ -16,11 +17,27 @@ const routes = [
     }
   },
   {
+    path: '/dictonary',
+    name: 'Dictonary',
+    component: Dictonary,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/about',
     name: 'about',
     component: AboutView,
     meta: {
       requiresAuth: true
+    }
+  },
+  {
+    path: '/',
+    name: 'home',
+    component: HomeView,
+    meta: {
+      requiresAuth: false
     }
   },
   {

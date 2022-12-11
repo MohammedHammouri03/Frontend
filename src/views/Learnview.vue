@@ -95,7 +95,8 @@ export default {
         method: 'DELETE',
         redirect: 'follow'
       }
-      fetch('http://localhost:8080/api/vokabel/' + vocabular.id, requestOptions)
+      // eslint-disable-next-line no-undef
+      fetch('http://localhost:8080/api/vokabel/', requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error))
