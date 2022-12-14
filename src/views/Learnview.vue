@@ -7,6 +7,9 @@
       <div class="col" v-for="vocabular in vocabularies" :key="vocabular.id">
         <div class="box">
    <span><h1>{{ vocabularies.indexOf(vocabular) + 1 }}/{{ vocabularies.length }}</h1>
+     <button class="btn-primary delete spinner"  v-on:click="deleteVokabel(vocabular.id, vocabular.word, vocabular.translation)"></button>
+     <button class="favorite-button" v-if="vocabular.favorite === true" v-on:click="updateVokabel(vocabular.id, vocabular.word, vocabular.translation, vocabular.favorite)"><i class="fa fa-star"></i></button>
+     <button class="favorite-button" v-else v-on:click="updateVokabel(vocabular.id, vocabular.word, vocabular.translation, vocabular.favorite)"><i class="fa fa-star-o"></i></button>
    <div class="word">
      <h2>{{ vocabular.word }}</h2>
    <div class="click">
@@ -53,6 +56,8 @@
   </body>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Testview',
   data () {
@@ -90,17 +95,42 @@ export default {
         .then(result => this.vocabularies.push(result))
         .catch(error => console.log('error', error))
     },
-    deletevocabulary (vocabular) {
+    deleteVokabel (id) {
+      axios.delete(`http://localhost:8080/api/vokabel/${id}`)
+        .then(response => {
+          this.vocabularies = this.vocabularies.filter(vocabular => vocabular.id !== id)
+        })
+        .catch(error => {
+          console.log(error)
+          alert(error)
+          // handle the error
+        })
+    },
+    updateVokabel (id, word, translation, favorite) {
+      const myHeaders = new Headers()
+      myHeaders.append('Content-Type', 'application/json')
+      const raw = JSON.stringify({
+        word: word,
+        translation: translation,
+        favorite: !favorite
+      })
+
       const requestOptions = {
-        method: 'DELETE',
+        method: 'PUT',
+        headers: myHeaders,
+        body: raw,
         redirect: 'follow'
       }
-      // eslint-disable-next-line no-undef
-      fetch('http://localhost:8080/api/vokabel/', requestOptions)
+
+      fetch('http://localhost:8080/api/vokabel/' + id, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
-        .catch(error => console.log('error', error))
-      this.vocabularies.splice(this.vocabularies.indexOf(vocabular), 1)
+      this.vocabularies = this.vocabularies.map(vocabular => {
+        if (vocabular.id === id) {
+          vocabular.favorite = !vocabular.favorite
+        }
+        return vocabular
+      })
     }
   }
 }
@@ -306,5 +336,19 @@ body {
 
 .offcanvas-body {
   background-image: url("https://www.ay-working.de/wp-content/uploads/2016/04/white-background-images-for-website-white-wallpapers-hd-2014-onlybackground-image.jpg");
+}
+
+.favorite-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+.favorite-button i {
+  font-size: 18px;
+  color: #ffc107;
+}
+
+.favorite-button:hover i {
+  color: #ffc107;
 }
 </style>

@@ -21,6 +21,7 @@
     "bulma": "^0.9.4",
     "chart.js": "^4.0.1",
     "core-js": "^3.8.3",
+    "font-awesome": "^4.7.0",
     "google-maps-api-loader": "^1.1.1",
     "google-translate": "^3.0.0",
     "v-google-translate": "^1.0.0",
