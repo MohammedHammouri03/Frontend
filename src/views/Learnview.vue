@@ -2,6 +2,7 @@
   <body>
   <div class="container-fluid">
     <h1 class="titleh1">Vocabularies</h1>
+    <button class="btn-primary" v-on:click="showonlyfavorites">Nur Favoriten anzeigen</button>
     <h2 class="titleh2" v-if="vocabularies.length === 0">No Vocabularies Yet</h2>
     <div class="row row-cols 1 row-cols-md4 g-4">
       <div class="col" v-for="vocabular in vocabularies" :key="vocabular.id">
@@ -103,7 +104,6 @@ export default {
         .catch(error => {
           console.log(error)
           alert(error)
-          // handle the error
         })
     },
     updateVokabel (id, word, translation, favorite) {

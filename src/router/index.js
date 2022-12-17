@@ -6,8 +6,17 @@ import Testview from '../views/Testview.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Dictonary from '@/views/Dictonary'
+import Timeplaner from '@/views/Timeplaner'
 
 const routes = [
+  {
+    path: '/calendar',
+    name: 'Calendar',
+    component: Timeplaner,
+    meta: {
+      requiresAuth: true
+    }
+  },
   {
     path: '/home',
     name: 'Home',

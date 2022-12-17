@@ -13,6 +13,7 @@
           <router-link class="nav-link" to="/test">Test</router-link>
           <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
           <router-link class="nav-link" to="/dictonary">Wörterbuch</router-link>
+          <router-link class="nav-link" to="/calendar">Zeitplaner</router-link>
           <router-link class="nav-link" to="/about">About</router-link>
         </ul>
         <ul class="navbar-nav ms-auto">
