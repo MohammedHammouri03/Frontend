@@ -2,30 +2,40 @@
   <body>
   <div class="container-fluid">
     <h1 class="titleh1">Vocabularies</h1>
-    <button class="btn-primary" v-on:click="showonlyfavorites">Nur Favoriten anzeigen</button>
-    <h2 class="titleh2" v-if="vocabularies.length === 0">No Vocabularies Yet</h2>
+    <h2 class="titleh2" v-if="filteredVocabularies.length === 0">Keine Vokabeln erstellt</h2>
+    <button class="btn-primary22" v-bind:class="{ 'btn-primary': showFavorites }"
+            v-on:click="showFavorites = !showFavorites">
+      {{ showFavorites ? 'Alle anzeigen' : 'Nur Favoriten' }}
+    </button>
     <div class="row row-cols 1 row-cols-md4 g-4">
-      <div class="col" v-for="vocabular in vocabularies" :key="vocabular.id">
+      <div class="col" v-for="vocabular in filteredVocabularies" :key="vocabular.id">
         <div class="box">
-   <span><h1>{{ vocabularies.indexOf(vocabular) + 1 }}/{{ vocabularies.length }}</h1>
-     <button class="btn-primary delete spinner"  v-on:click="deleteVokabel(vocabular.id, vocabular.word, vocabular.translation)"></button>
-     <button class="favorite-button" v-if="vocabular.favorite === true" v-on:click="updateVokabel(vocabular.id, vocabular.word, vocabular.translation, vocabular.favorite)"><i class="fa fa-star"></i></button>
-     <button class="favorite-button" v-else v-on:click="updateVokabel(vocabular.id, vocabular.word, vocabular.translation, vocabular.favorite)"><i class="fa fa-star-o"></i></button>
-   <div class="word">
-     <h2>{{ vocabular.word }}</h2>
-   <div class="click">
-     <button class="btn btn-primary" @click="showDefinition(vocabular)"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                             width="16" height="16" fill="currentColor"
-                                                                             class="bi bi-eye-fill" viewBox="0 0 16 16">
-  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-</svg></button>
-     </div>
-     <div class="definition" v-if="vocabular.showDefinition">
-       <h3>{{ vocabular.translation }}</h3>
-     </div>
-        </div>
-        </span>
+            <span>
+              <h1>{{ filteredVocabularies.indexOf(vocabular) + 1 }}/{{ filteredVocabularies.length }}</h1>
+              <button class="btn-primary delete spinner"
+                      v-on:click="deleteVokabel(vocabular.id, vocabular.word, vocabular.translation)"></button>
+              <button class="favorite-button" v-if="vocabular.favorite === true"
+                      v-on:click="updateVokabel(vocabular.id, vocabular.word, vocabular.translation, vocabular.favorite)"><i
+                class="fa fa-star"></i></button>
+              <button class="favorite-button" v-else
+                      v-on:click="updateVokabel(vocabular.id, vocabular.word, vocabular.translation, vocabular.favorite)"><i
+                class="fa fa-star-o"></i></button>
+              <div class="word">
+                <h2>{{ vocabular.word }}</h2>
+                <div class="click">
+                  <button class="btn btn-primary" @click="showDefinition(vocabular)"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill"
+                    viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path
+                      d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                  </svg></button>
+                </div>
+                <div class="definition" v-if="vocabular.showDefinition">
+                  <h3>{{ vocabular.translation }}</h3>
+                </div>
+              </div>
+            </span>
         </div>
       </div>
     </div>
@@ -60,10 +70,11 @@
 import axios from 'axios'
 
 export default {
-  name: 'Testview',
+  name: 'Learnview',
   data () {
     return {
-      vocabularies: []
+      vocabularies: [],
+      showFavorites: false
     }
   },
   mounted () {
@@ -83,18 +94,22 @@ export default {
       vocabular.showDefinition = !vocabular.showDefinition
     },
     createvocabulary () {
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          word: this.word,
-          translation: this.translation
-        })
+      if (this.word === '' || this.translation === '') {
+        alert('Die Eingabe darf nicht leer sein')
+      } else {
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            word: this.word,
+            translation: this.translation
+          })
+        }
+        fetch('http://localhost:8080/api/vokabel', requestOptions)
+          .then(response => response.json())
+          .then(result => this.vocabularies.push(result))
+          .catch(error => console.log('error', error))
       }
-      fetch('http://localhost:8080/api/vokabel', requestOptions)
-        .then(response => response.json())
-        .then(result => this.vocabularies.push(result))
-        .catch(error => console.log('error', error))
     },
     deleteVokabel (id) {
       axios.delete(`http://localhost:8080/api/vokabel/${id}`)
@@ -131,6 +146,15 @@ export default {
         }
         return vocabular
       })
+    }
+  },
+  computed: {
+    filteredVocabularies () {
+      if (this.showFavorites) {
+        return this.vocabularies.filter(vocabular => vocabular.favorite)
+      } else {
+        return this.vocabularies
+      }
     }
   }
 }
@@ -343,6 +367,7 @@ body {
   border: none;
   padding: 0;
 }
+
 .favorite-button i {
   font-size: 18px;
   color: #ffc107;
@@ -351,4 +376,19 @@ body {
 .favorite-button:hover i {
   color: #ffc107;
 }
+
+.btn-primary22 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 150px;
+  font-size: 20px;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  background-image: linear-gradient(to right, #ff416c, #ff4b2b);
+  border-radius: 10px;
+  padding: 10px;
+  width: 30%;
+  margin-top: -50px;
+}
+
 </style>

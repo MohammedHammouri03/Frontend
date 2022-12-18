@@ -1,6 +1,5 @@
 <script setup>
 import Chart from 'chart.js/auto'
-
 const requestOptions = {
   method: 'GET',
   redirect: 'follow'
