@@ -7,8 +7,17 @@ import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Dictonary from '@/views/Dictonary'
 import Timeplaner from '@/views/Timeplaner'
+import Info from '@/views/Info'
 
 const routes = [
+  {
+    path: '/info',
+    name: 'Info',
+    component: Info,
+    meta: {
+      requiresAuth: true
+    }
+  },
   {
     path: '/calendar',
     name: 'Calendar',

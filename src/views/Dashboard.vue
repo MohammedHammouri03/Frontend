@@ -59,7 +59,6 @@ fetch('http://localhost:8080/api/score', requestOptions)
 <template>
   <main class="alll">
     <h1 class="titleof">Dashboard</h1>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="container">
       <div class="row">
         <div class="col-md-4 col-xl-3">

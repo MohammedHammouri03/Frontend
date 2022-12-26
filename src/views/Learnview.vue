@@ -2,7 +2,7 @@
   <body>
   <div class="container-fluid">
     <h1 class="titleh1">Vocabularies</h1>
-    <h2 class="titleh2" v-if="filteredVocabularies.length === 0">Keine Vokabeln erstellt</h2>
+    <h2 class="titleh2" v-if="filteredVocabularies.length === 0">Keine Vokabeln</h2>
     <button class="btn-primary22" v-bind:class="{ 'btn-primary': showFavorites }"
             v-on:click="showFavorites = !showFavorites">
       {{ showFavorites ? 'Alle anzeigen' : 'Nur Favoriten' }}
