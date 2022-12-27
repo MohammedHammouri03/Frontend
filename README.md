@@ -1,29 +1,37 @@
-# frontend
+# Frontend für das WebTech Projekt Sommersemester 2022
 
-## Project setup
-```
-npm install
-```
+Die erstellte Website heißt MyLearningApp
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Die Website bietet die Möglichkeit neue Vokabeln zu lernen und deine Sprachkünste zu verbessern.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Die Website hat folgende Funktionen:
 
-### Run your unit tests
-```
-npm run test:unit
-```
+# Lernen
 
-### Lints and fixes files
-```
-npm run lint
-```
+- Vokabeln lernen durch :
+- Vokabeln erstellen 
+- Vokabeln löschen
+- Vokabeln als Favorit hinzufügen
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Test
+
+- Quiz durchführen um sein Wissen zu testen 
+
+# Wärterbuch
+
+- Eine API die ein Englisches Wörterbuch anbietet
+- Neue Englische Begriffe suchen und deren Definitionen anzeigen lassen
+
+# Dashboard
+
+- Statistiken über die Vokabeln anzeigen lassen
+- Statistiken über die Quiz anzeigen lassen
+
+# About 
+
+- Informationen über die Website anzeigen lassen
+
+# Info
+
+- Informationen über die Website anzeigen lassen
+- Neue Ideen für die Website einreichen
